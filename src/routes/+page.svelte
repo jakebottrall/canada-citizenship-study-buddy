@@ -1,2 +1,8 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<svelte:head>
+	<title>ohhhh canada</title>
+	<meta name="description" content="The best mock canada citizenship test" />
+</svelte:head>
+
+<div>
+	<h1 class="text-3xl font-bold underline">Canada Citizenship Study Buddy</h1>
+</div>
