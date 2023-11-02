@@ -3,6 +3,7 @@
 	import notAwesome from '$lib/assets/not-awesome.png';
 	import { questions } from '$lib/questions';
 	import ResultImage from '$lib/ResultImage.svelte';
+	import Option from '$lib/Option.svelte';
 
 	const getRandomQuestion = () => Math.floor(Math.random() * questions.length);
 
@@ -51,16 +52,12 @@
 	<h1 class="mb-2 text-3xl text-white">Canada Citizenship Study Buddy</h1>
 
 	<h2 class="mb-2 text-2xl text-white">
-		Question {index + 1}: {currentQuestion.question}
+		Question {questionsAsked + 1}: {currentQuestion.question}
 	</h2>
 
 	<div class="w-5/6">
-		{#each randomizeOptionsOrder(currentQuestion.options) as option (option.question)}
-			<button
-				on:click={() => handleClick(option.value)}
-				class="mb-2 w-full bg-violet-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-violet-600 focus:outline-none focus:ring-4 focus:ring-blue-300"
-				>{option.question}</button
-			>
+		{#each randomizeOptionsOrder(currentQuestion.options) as option, index (option.question)}
+			<Option on:click={() => handleClick(option.value)} question={option.question} {index} />
 		{/each}
 	</div>
 
