@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { questions } from '$lib/questions';
 	import awesome from '$lib/assets/awesome.png';
 	import notAwesome from '$lib/assets/not-awesome.png';
-	import { questions } from '$lib/questions';
-	import ResultImage from '$lib/ResultImage.svelte';
 	import Option from '$lib/Option.svelte';
+	import ResultImage from '$lib/ResultImage.svelte';
 
 	const getRandomQuestion = () => Math.floor(Math.random() * questions.length);
 
