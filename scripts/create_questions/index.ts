@@ -1,4 +1,5 @@
 import fs from 'fs';
+import prettier from 'prettier';
 import z from 'zod';
 import { questionsSchema } from '../../src/lib/questionsSchema';
 import { createAndParseQuestions } from './createAndParseQuestions';
@@ -16,7 +17,6 @@ const pages = [
 	'canadian-symbols',
 	'canadas-economy',
 	'canadas-regions',
-	'authorities',
 	'memorable-quote'
 ];
 
@@ -25,12 +25,21 @@ const main = async () => {
 
 	for (const page of pages) {
 		console.log(`Starting ${page}...`);
+
 		const { pageHtml, pageUrl } = await fetchAndParsePage(page);
-		const newQuestions = await createAndParseQuestions(pageHtml);
+
+		const newQuestions = await createAndParseQuestions(
+			pageHtml,
+			questions.map((q) => q.question)
+		);
+
 		newQuestions.forEach((question) => questions.push({ ...question, reference: pageUrl }));
 	}
 
-	fs.writeFileSync(`./static/questions.json`, JSON.stringify(questions));
+	const jsonString = JSON.stringify(questions);
+	const prettyJsonString = await prettier.format(jsonString, { parser: 'json' });
+
+	fs.writeFileSync(`./static/questions.json`, prettyJsonString);
 };
 
 main();
