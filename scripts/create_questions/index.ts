@@ -1,8 +1,8 @@
-import z from 'zod';
 import fs from 'fs';
+import z from 'zod';
 import { questionsSchema } from '../../src/lib/questionsSchema';
-import { fetchAndParsePage } from './fetchAndParsePage';
 import { createAndParseQuestions } from './createAndParseQuestions';
+import { fetchAndParsePage } from './fetchAndParsePage';
 
 const pages = [
 	'oath-citizenship',
