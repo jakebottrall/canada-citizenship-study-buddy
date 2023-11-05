@@ -1,9 +1,13 @@
 <script lang="ts">
-	import { questions } from '$lib/questions';
 	import awesome from '$lib/assets/awesome.png';
 	import notAwesome from '$lib/assets/not-awesome.png';
 	import Option from '$lib/Option.svelte';
 	import ResultImage from '$lib/ResultImage.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+
+	const { questions } = data;
 
 	const getRandomQuestion = () => Math.floor(Math.random() * questions.length);
 
@@ -38,7 +42,7 @@
 		index = getRandomQuestion();
 	};
 
-	const randomizeOptionsOrder = (options: { question: string; value: number }[]) => {
+	const randomizeOptionsOrder = (options: { label: string; value: number }[]) => {
 		return options.sort(() => Math.random() - 0.5);
 	};
 </script>
@@ -56,8 +60,8 @@
 	</h2>
 
 	<div class="w-5/6">
-		{#each randomizeOptionsOrder(currentQuestion.options) as option, index (option.question)}
-			<Option on:click={() => handleClick(option.value)} question={option.question} {index} />
+		{#each randomizeOptionsOrder(currentQuestion.options) as option, index (option.label)}
+			<Option on:click={() => handleClick(option.value)} question={option.label} {index} />
 		{/each}
 	</div>
 
